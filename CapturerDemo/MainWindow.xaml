@@ -1,0 +1,15 @@
+﻿<Window x:Class="CapturerDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CapturerDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525"
+        WindowStyle="ToolWindow">
+    <StackPanel>
+        <Image Name="Image"></Image>
+        <Button Content="录制屏幕" Click="ButtonBase1_OnClick"></Button>
+        <Button Content="截屏" Click="ButtonBase2_OnClick"></Button>
+    </StackPanel>
+</Window>

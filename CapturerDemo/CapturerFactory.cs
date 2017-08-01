@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,6 +9,7 @@ namespace CapturerDemo
     {
         public Action<Bitmap> ImageCaptured;
         private bool _running;
+
         public void Start()
         {
             Task.Run(() =>
@@ -19,16 +17,10 @@ namespace CapturerDemo
                 _running = true;
                 while (_running)
                 {
-                    var image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-                    var imgGraphics = Graphics.FromImage(image);
-                    imgGraphics.CopyFromScreen(0, 0, 0, 0,
-                        new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
+                    var image= GetSingleImage();
                     ImageCaptured.Invoke(image);
-                    
                 }
-               
             });
-
         }
 
         public void Stop()
@@ -39,9 +31,11 @@ namespace CapturerDemo
         public Bitmap GetSingleImage()
         {
             var image = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            var imgGraphics = Graphics.FromImage(image);
-            imgGraphics.CopyFromScreen(0, 0, 0, 0,
-                new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
+            using (var imgGraphics = Graphics.FromImage(image))
+            {
+                imgGraphics.CopyFromScreen(0, 0, 0, 0,
+                    new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
+            }
             return image;
         }
     }

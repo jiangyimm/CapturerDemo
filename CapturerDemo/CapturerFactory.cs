@@ -10,8 +10,10 @@ namespace CapturerDemo
         public Action<Bitmap> ImageCaptured;
         private bool _running;
 
-        public void Start()
+        public bool Start()
         {
+            if(_running)
+                return false;
             Task.Run(() =>
             {
                 _running = true;
@@ -21,6 +23,7 @@ namespace CapturerDemo
                     ImageCaptured.Invoke(image);
                 }
             });
+            return true;
         }
 
         public void Stop()

@@ -23,18 +23,19 @@ namespace CapturerDemo
 
         private void ButtonBase1_OnClick(object sender, RoutedEventArgs e)
         {
-            _capturer.Start();
+            if(!_capturer.Start())
+                return;
             _capturer.ImageCaptured += bitmap =>
             {
                 Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    Image.Source = ChangeBitmapToImageSource(bitmap);
+                    Image.Source = BitmapToImageSource(bitmap);
                     bitmap.Dispose();
                 }));
             };
         }
 
-        public ImageSource ChangeBitmapToImageSource(Bitmap bitmap)
+        public ImageSource BitmapToImageSource(Bitmap bitmap)
         {
             var hBitmap = bitmap.GetHbitmap();
             ImageSource wpfBitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
